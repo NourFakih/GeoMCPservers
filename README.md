@@ -1,3 +1,7 @@
+# Geo MCP Servers – C5 Assignment
+
+This repository contains my implementation for the C5 assignment: custom MCP map servers plus an OpenAI Agents SDK map assistant.
+
 # Part 1
 The Hugging Face article presents the Model Context Protocol (MCP) as an open, model-agnostic standard for connecting AI agents to external tools, data sources, and workflows. MCP addresses the long-standing “integration problem”: previously, developers had to build one-off API integrations, plugins, or framework-specific tools for each service the model needed to access.
 
@@ -88,3 +92,5 @@ py -3.13 .\map_agent_gradio.py
 Then open the local URL Gradio prints (by default http://127.0.0.1:7860/) in your browser and chat with the same MapAssistant agent using a graphical interface. This is convenient for your video recording: you can show the map-related questions and answers in the browser instead of the terminal.
 
 # Part 3
+Youtube video: 
+https://youtu.be/o2ZCBDNxTao
