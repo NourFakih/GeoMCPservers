@@ -1,3 +1,24 @@
+# Part 1
+The Hugging Face article presents the Model Context Protocol (MCP) as an open, model-agnostic standard for connecting AI agents to external tools, data sources, and workflows. MCP addresses the long-standing “integration problem”: previously, developers had to build one-off API integrations, plugins, or framework-specific tools for each service the model needed to access.
+
+ Instead, MCP defines a client–server architecture where an AI application (the host) runs an MCP client that discovers and talks to MCP servers, which expose tools, resources, and prompt templates through a standardized schema. This enables dynamic discovery: when a new MCP server is started (for example, for a CRM or database), the agent can immediately detect its capabilities without code changes.
+
+
+The article emphasizes that MCP is not an agent framework or planner; it sits in the “Action” layer of agentic workflows, acting as plumbing that lets agents perform operations like querying databases, fetching files, or calling APIs.
+
+ It reduces integration complexity from an N×M problem (N models × M tools) to N+M by standardizing how tools are exposed.
+
+ At the same time, the author notes trade-offs: running multiple local or remote servers introduces operational overhead; models can still misuse tools if descriptions are poor; the protocol is evolving; and security and governance (authentication, logging, and permissions) are still active areas of work.
+
+Existing map servers illustrate useful patterns for designing MCP servers. OpenStreetMap and its ecosystem center on a tiled architecture: web maps fetch raster or vector tiles from HTTP endpoints following a standard {z}/{x}/{y} URL pattern, separating rendering on the client from data serving on the backend.
+
+ Providers built on OSM, such as Geoapify, expose many different visual styles (e.g., “osm-carto,” “positron,” “dark-matter”) via style JSON documents and tile endpoints that are parameterized by zoom, x/y coordinates, and API keys.
+ Libraries like MapLibre GL JS consume vector tiles and styles to render interactive, GPU-accelerated maps in the browser, while plugins add geocoding, search, and navigation controls.
+
+ More advanced setups use dedicated tile servers (e.g., Martin) behind MapLibre frontends and support layering of GeoJSON, raster, and vector data.
+
+Across these systems, common design patterns emerge: stateless HTTP APIs, clear URL and parameter conventions, separation of concerns between data serving and rendering, and composable “operations” such as tile retrieval, geocoding, and routing. These map naturally to MCP “tools” and operations for your assignment’s custom map servers.
+
 # Map Agents Assignment – Part 2
 
 This folder contains a small OpenAI Agents SDK project implementing two MCP map servers and a simple CLI interface for demo/screencast.

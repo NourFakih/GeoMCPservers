@@ -20,12 +20,23 @@ async def chat(
     message: str, history: List[Tuple[str, str]]
 ) -> str:
     """
-    Gradio chat handler.
+    Gradio chat handler with short-term memory.
 
-    Each user message is handled independently; the agent does not keep
-    conversation state between turns (stateless, as in the assignment).
-    ChatInterface manages the history; we just return the assistant reply.
+    We build a short text context from the last few turns and include it
+    in the user message sent to the agent, so follow-up questions can
+    reference the same place or route.
     """
+    # Build short in-message context from recent history
+    max_turns = 4
+    recent = history[-max_turns:] if history else []
+    lines: list[str] = []
+    for user_msg, assistant_msg in recent:
+        lines.append(f"User: {user_msg}")
+        if assistant_msg:
+            lines.append(f"Assistant: {assistant_msg}")
+    lines.append(f"User: {message}")
+    message_with_context = "\n".join(lines)
+
     async with MCPServerStdio(
         name="OSMGeocoder",
         params={
@@ -54,8 +65,8 @@ async def chat(
             model_settings=ModelSettings(tool_choice="auto"),
         )
 
-        # Single-turn call: just pass the current user message
-        result = await Runner.run(agent, message)
+        # Send the message with embedded short history context
+        result = await Runner.run(agent, message_with_context)
 
     return result.final_output
 
