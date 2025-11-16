@@ -19,7 +19,7 @@ Existing map servers illustrate useful patterns for designing MCP servers. OpenS
 
 Across these systems, common design patterns emerge: stateless HTTP APIs, clear URL and parameter conventions, separation of concerns between data serving and rendering, and composable “operations” such as tile retrieval, geocoding, and routing. These map naturally to MCP “tools” and operations for your assignment’s custom map servers.
 
-# Map Agents Assignment – Part 2
+# Part 2
 
 This folder contains a small OpenAI Agents SDK project implementing two MCP map servers and a simple CLI interface for demo/screencast.
 
@@ -87,3 +87,4 @@ py -3.13 .\map_agent_gradio.py
 
 Then open the local URL Gradio prints (by default http://127.0.0.1:7860/) in your browser and chat with the same MapAssistant agent using a graphical interface. This is convenient for your video recording: you can show the map-related questions and answers in the browser instead of the terminal.
 
+# Part 3
