@@ -2,6 +2,9 @@
 
 This repository contains my implementation for the C5 assignment: custom MCP map servers plus an OpenAI Agents SDK map assistant.
 
+# Part 3 
+Youtube video: https://youtu.be/o2ZCBDNxTao
+
 # Part 1
 The Hugging Face article presents the Model Context Protocol (MCP) as an open, model-agnostic standard for connecting AI agents to external tools, data sources, and workflows. MCP addresses the long-standing “integration problem”: previously, developers had to build one-off API integrations, plugins, or framework-specific tools for each service the model needed to access.
 
@@ -94,3 +97,10 @@ Then open the local URL Gradio prints (by default http://127.0.0.1:7860/) in you
 # Part 3
 Youtube video: 
 https://youtu.be/o2ZCBDNxTao
+
+Reflection
+
+Working on this assignment made the role of MCP much clearer in real agentic systems. I saw how MCP sits between “pure LLM prompts” and raw HTTP APIs, providing a structured, discoverable layer of tools that an agent can call. Turning existing map services into MCP servers forced me to think about clean tool boundaries, good parameter names, and concise descriptions so the model would choose the right operation. I also learned how the OpenAI Agents SDK orchestrates model calls and MCP tools, and how important it is to manage environment configuration and secrets correctly (for example, keeping API keys in a local `.env` instead of committing them).
+
+If I extended this project, I would add more map-focused tools and better UX. On the server side, that could mean point‑of‑interest search, support for different travel modes, and simple caching of frequent geocoding and routing requests. On the UI side, I would like to visualize routes on a map, not just describe them in text, and experiment with slightly richer conversation context so the agent can answer follow‑up questions about the same trip. Finally, I would harden error handling and rate‑limit behavior to be a better citizen of the public APIs I am calling.
+
